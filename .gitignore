@@ -1,0 +1,11 @@
+# Personal data — never commit these
+candidate-profile.md
+*applications*.xlsx
+*tracker*.xlsx
+*.csv
+
+# OS noise
+.DS_Store
+Thumbs.db
+resume-text.md
+*.pdf
