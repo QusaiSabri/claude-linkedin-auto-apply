@@ -37,11 +37,11 @@ Use the AskUserQuestion tool (multiple-choice / form UI) if it is available: bat
 **Resume (both copies matter)**
 - **Local resume file:** already collected above; this file is uploaded on external company sites.
 - **LinkedIn saved resume:** confirm the same resume is uploaded/saved on LinkedIn and get its exact filename; Easy Apply selects the saved copy, it never uploads files inside LinkedIn.
-- **Variants (optional):** if they keep more than one version (e.g. backend vs full-stack), record each local path, the matching LinkedIn saved filename, and a simple rule for which variant fits which job type. Selection between real variants is allowed; generating or editing resumes is not.
+- **Variants (optional):** if they keep more than one version tuned to different role types, record each local path, the matching LinkedIn saved filename, and a simple rule for which variant fits which job type. Selection between real variants is allowed; generating or editing resumes is not.
 
 **Targeting**
 - Roles / titles / keywords to search.
-- Their tech stack (so nothing gets wrongly dismissed as "off-stack").
+- Their core skills, tools, and domain (so nothing gets wrongly dismissed as off-profile). This skill is profession-agnostic: engineering, healthcare, trades, finance, design, education, logistics, whatever the user does. Use THEIR vocabulary from the interview and resume, never a default industry's.
 - Location rule: remote regions, acceptable metros/hybrid, relocation yes/no.
 - Salary floor and target. If they target multiple seniority levels (e.g. senior AND staff, or open to mid-level), ask whether the floor differs by level and record each; vetting compares a job against the floor for THAT job's level.
 - Full-time only, or also contract?
@@ -54,9 +54,10 @@ Use the AskUserQuestion tool (multiple-choice / form UI) if it is available: bat
 - Any "ask me first" gray areas.
 
 **Screening answers** (so questions don't need re-deriving each apply)
-- Years of experience overall and per key technology (only real numbers).
+- Years of experience overall and per key skill, tool, or specialty the user named (only real numbers).
 - Willing: background check / drug test / relocation?
-- How they'd answer common AI-tooling questions if relevant to their field.
+- Licenses, certifications, and clearances, with license numbers, issuing state/body, and expiry where they apply (PE/EIT, RN, CDL, CPA, teaching credential, security clearance, trade licenses). Many applications require these and they cannot be guessed. Ask which are current versus in progress.
+- Any other question their field asks routinely (portfolio link, AI-tooling questions in software, shift availability in healthcare, travel percentage in field work).
 - Demographic self-ID preference (default: "prefer not to answer").
 
 **Limits**
@@ -83,7 +84,7 @@ If a batch is running unattended (nobody responding), do not stall on warm-up ap
 Before applying to a strong match, compare the job description's top requirements against `resume-text.md` and what the profile/LinkedIn shows the user actually has. If a requirement that would materially improve their chances is missing from the resume but the user really has it (it is on their LinkedIn or in their profile), **do not apply yet**:
 
 - Log the job as `Held - resume gap` with the URL.
-- Tell the user exactly what and why: "This JD leads with Kubernetes. Your LinkedIn shows it but your resume never mentions it. One line under your <project> bullet would fix it."
+- Tell the user exactly what and why, naming the actual requirement from THIS job: "This JD leads with <requirement>. Your LinkedIn shows it but your resume never mentions it. One line under your <relevant experience> would fix it."
 - Continue the batch with other jobs; return to held jobs when the user says the resume is updated (then re-read the file, refresh `resume-text.md`, and apply).
 
 Reserve holds for genuinely significant gaps on genuinely good matches. If more than 2-3 jobs in a batch are getting held, the bar is too low; apply with the resume as-is and put the observation in the end-of-batch keyword report instead. Never edit the resume yourself, and never claim the missing skill in form answers while the resume is silent on it unless the profile confirms it truthfully.
@@ -126,7 +127,7 @@ Add params: `&keywords=<term>` `&f_WT=2` (remote) `&f_SB2=<n>` (minimum salary b
 
 **Salary filter is derived, never copied.** LinkedIn's `f_SB2` buckets step up in roughly $20K increments starting around 1 = $40K+. Pick the bucket at or just below THIS user's salary floor from their profile, verify the label once in the LinkedIn filter UI (the mapping shifts), and store the verified bucket number in the profile. If the user targets multiple seniority levels with different floors (junior vs senior), filter at the LOWEST acceptable floor, or omit `f_SB2` entirely and enforce salary per-JD during vetting, so higher-level roles are not filtered out and lower-level ones are still caught by the vet step.
 
-Rotate keywords to escape duplicate results (Senior Software Engineer, Staff Software Engineer, Full Stack Engineer, Backend Engineer, and the user's own stack terms).
+Rotate keywords to escape duplicate results. Build the rotation from the user's own titles and skills, not from any fixed list: vary seniority prefixes they accept (Junior/Mid/Senior/Lead/Principal or their field's equivalents), synonyms for the same role, and adjacent titles they said they would take. A civil engineer might rotate Civil Engineer, Structural Engineer, Project Engineer, Site Engineer; a nurse might rotate RN, Staff Nurse, Charge Nurse. Never inject titles from a field the user is not in.
 
 Pull candidate IDs in one call:
 ```js
