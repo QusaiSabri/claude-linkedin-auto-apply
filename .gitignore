@@ -1,11 +1,13 @@
-# Personal data — never commit these
+# Personal data: never commit these
 candidate-profile.md
+resume-text.md
+linkedin-profile-text.md
+cover-letter-style.md
 *applications*.xlsx
 *tracker*.xlsx
 *.csv
+*.pdf
 
 # OS noise
 .DS_Store
 Thumbs.db
-resume-text.md
-*.pdf

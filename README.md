@@ -1,43 +1,56 @@
 # LinkedIn Auto-Apply: a Claude Skill
 
-Say **"apply to 10 jobs"**. Claude finds jobs on LinkedIn matching your criteria, applies for you (Easy Apply inside LinkedIn; external sites like Greenhouse and Workday filled with your own resume), and logs everything to a tracker.
+Say **"apply to 10 jobs"**. Claude finds jobs on LinkedIn that match you, fills out the applications (inside LinkedIn, and on company career sites with the long forms), and keeps a spreadsheet of everything it did.
 
 ## Setup (a couple of minutes)
 
-Needs the **Claude desktop app** (with Cowork) and the **[Claude Chrome extension](https://claude.com/chrome)**, with Chrome logged into LinkedIn.
+You need the **Claude desktop app** and the **[Claude Chrome extension](https://claude.com/chrome)**, with Chrome logged into LinkedIn. (Claude Code with the Chrome extension works too.)
 
 1. Download [`linkedin-auto-apply.skill`](./linkedin-auto-apply.skill).
-2. Drag it into a Claude chat, click **Save skill**.
-3. New chat: `apply to 3 jobs`
+2. Drag it into a Claude chat and click **Save skill**.
+3. Start a new chat and say: `apply to 3 jobs`
 
-The first run interviews you once (mostly multiple-choice): it reads your resume PDF and only asks what's not on it. After that, every run starts instantly, and your first two applications pause for your approval so you can check every answer before anything is sent.
+## What you'll be asked the first time
 
-## What it does
+- Your resume (a PDF). Claude reads it so you never retype what is already on it.
+- A folder on your computer to keep your profile and spreadsheet in.
+- A few mostly multiple-choice questions: what jobs you want, where, how much, what to never apply to, and the answers that applications always ask (years of experience, licenses, work authorization).
 
-- Reads each job description; skips excluded companies, duplicates, and bad fits.
-- **Never invents anything.** Answers come only from your resume and interview; anything it can't truthfully answer, it asks you. Captchas and logins are handed to you too.
-- **Resume-gap holds:** if a great match wants a skill that's on your LinkedIn but not your resume, it holds the job and tells you the one-line fix. You edit, it applies.
-- Paces itself like a human, respects your daily cap, stops cold on any LinkedIn verification screen.
-- Ends each batch honestly: submitted, skipped and why, held jobs, and which keywords keep appearing in JDs that your resume is missing.
+That takes one conversation. After that, every run starts right away.
 
-## Commands
+## When it stops and asks you
+
+- Your first two applications, so you can check every answer before anything is sent.
+- Any LinkedIn security check. It never clicks through those.
+- Logins, account sign-ups, and verification codes on company sites.
+- Any question it cannot answer truthfully from your resume and profile.
+- A cover letter, the first few times, so you can approve the style.
+- A great match that wants a skill you have but your resume does not mention. It holds the job and tells you the one-line fix.
+
+## What it will never do
+
+Invent answers. Edit your resume. Type or store passwords. Click through LinkedIn security checks. Enter your Social Security number, date of birth, or bank details. Apply faster than a person would.
+
+## Things you can say
 
 | Say | It does |
 |---|---|
 | `apply to 10 jobs` | Runs a batch |
-| `show me matching jobs` | Dry run, applies to nothing |
-| `I updated my resume, retry the held jobs` | Applies to held jobs |
-| `update my profile: ...` | Edits your profile, no re-interview |
-| `add <company> to my exclusions` | Never applies there again |
+| `show me matching jobs` | Lists matches, applies to nothing |
+| `apply to this job: <link>` | Applies to one job you found yourself |
+| `apply to my saved jobs` | Applies to the jobs you saved on LinkedIn |
+| `continue` | Picks up where the last batch stopped |
+| `I updated my resume, retry the held jobs` | Applies to jobs it held for you |
+| `update my profile: ...` / `add <company> to my exclusions` | Changes your profile, no re-interview |
+| `I got an interview at <company>` / `<company> rejected me` | Updates your spreadsheet |
+| `show my pipeline` | Where everything stands |
+
+Your spreadsheet lives in the folder you chose (or a Google Sheet if you prefer), one row per job with the status.
 
 ## Keeping it cheap
 
-Browser screenshots are the expensive part. Connect the free **Dice** or **ZipRecruiter** connector (no account needed) and the skill searches jobs as plain text instead, ~10x cheaper; only applying uses the browser. Keep batches at 3-5 jobs on a Pro plan, 10-15 on Max (external applications cost ~2-3x an Easy Apply). Sonnet is the recommended model; step up a tier only if forms keep getting misread.
+Screenshots are the expensive part. Connecting the free **Dice** or **ZipRecruiter** connector lets Claude search as plain text, which is much cheaper; only the applying itself uses the browser. Keep batches to 3-5 jobs on a smaller plan, 10-15 on a larger one. Company-site applications cost about two to three times a LinkedIn one.
 
-## Privacy & safety
+## Good to know
 
-Your profile and resume live only in a folder you choose on your own computer; passwords are never stored or typed. The `.gitignore` keeps personal files out of git if you fork. Automating LinkedIn may violate [their User Agreement](https://www.linkedin.com/legal/user-agreement) and fast-applying accounts can be restricted; the skill paces itself and stops on verification challenges, but use at your own risk. Not affiliated with LinkedIn.
-
-## License
-
-MIT
+Some company sites make you create an account for each company; Claude pauses for you to do that. Your profile and resume stay in the folder you chose on your own computer. Automating LinkedIn may go against [their User Agreement](https://www.linkedin.com/legal/user-agreement), and accounts that apply too fast can be restricted; the skill paces itself and stops on any security check, but use it at your own risk. Not affiliated with LinkedIn. MIT licensed.
